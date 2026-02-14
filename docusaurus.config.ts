@@ -38,14 +38,14 @@ const config: Config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/playoo/docusaurus-template/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/playoo/docusaurus-template/edit/main/',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/playoo/docusaurus-template/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/playoo/docusaurus-template/edit/main/',
         },
         theme: {
           customCss: './src/css/custom.css',
