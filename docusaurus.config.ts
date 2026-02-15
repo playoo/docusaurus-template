@@ -59,12 +59,12 @@ const config: Config = {
     image: 'img/docusaurus-social-card.jpg',
     algolia: {
       // Algolia 提供的应用 ID
-      appId: 'YOUR_APP_ID',
+      appId: '9UPXRRL56T',
 
       //  公开 API 密钥：提交它没有危险
-      apiKey: 'YOUR_SEARCH_API_KEY',
+      apiKey: 'c6a52b5ffbe371e1af2eb067cf663d5f',
 
-      indexName: 'YOUR_INDEX_NAME',
+      indexName: 'staucuscus',
 
       // 可选：见下文
       contextualSearch: true,
