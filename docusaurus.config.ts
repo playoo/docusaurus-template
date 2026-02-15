@@ -3,8 +3,8 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
+  title: '我的收藏夹',
+  tagline: '仅仅是个人收藏而已！',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
@@ -58,7 +58,7 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'My Site',
+      title: '我的收藏夹',
       logo: {
         alt: 'My Site Logo',
         src: 'img/logo.svg',
@@ -68,9 +68,9 @@ const config: Config = {
           type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
-          label: 'Tutorial',
+          label: '收藏Tutorial',
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
+        {to: '/blog', label: '日志', position: 'left'},
         {
           href: 'https://github.com/playoo/docusaurus-template',
           label: 'GitHub',
@@ -85,7 +85,7 @@ const config: Config = {
           title: 'Docs',
           items: [
             {
-              label: 'Tutorial',
+              label: '收藏',
               to: '/docs/intro',
             },
           ],
@@ -111,7 +111,7 @@ const config: Config = {
           title: 'More',
           items: [
             {
-              label: 'Blog',
+              label: '日志',
               to: '/blog',
             },
             {
