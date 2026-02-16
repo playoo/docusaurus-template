@@ -30,7 +30,7 @@ const FeatureList: FeatureItem[] = [
     ),
   },
   {
-    title: 文档版本化',
+    title: '文档版本化',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
       <>
