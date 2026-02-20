@@ -1,7 +1,7 @@
 ---
 slug: long-blog-post
 title: Long Blog Post
-authors: 旧梦初醒
+authors: [旧梦]
 tags: [碎碎语]
 ---
 
