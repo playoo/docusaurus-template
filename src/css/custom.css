@@ -28,3 +28,48 @@
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
+
+/* 视频折叠面板样式 */
+.video-details {
+  margin: 1rem 0;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.video-details summary {
+  padding: 1rem;
+  background-color: #f9fafb;
+  cursor: pointer;
+  font-weight: 600;
+  list-style: none; /* 隐藏默认的三角符号 */
+}
+
+.video-details summary::before {
+  content: "▶";
+  display: inline-block;
+  margin-right: 0.5rem;
+  transition: transform 0.2s;
+}
+
+.video-details[open] summary::before {
+  transform: rotate(90deg);
+}
+
+/* 视频容器响应式适配 */
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 宽高比 */
+  height: 0;
+  overflow: hidden;
+}
+
+.bilibili-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
