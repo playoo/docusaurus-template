@@ -14,3 +14,7 @@ hola:
   label: Hola
   permalink: /hola
   description: Hola tag description
+碎碎念:
+  label: 碎碎念
+  permalink: /ssn
+  description: 碎碎念 tag description
