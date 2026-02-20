@@ -1,8 +1,8 @@
 ---
 slug: long-blog-post
 title: Long Blog Post
-authors: endi
-tags: [hello, docusaurus]
+authors: 旧梦初醒
+tags: [碎碎语]
 ---
 
 This is the summary of a very long blog post,
