@@ -1,5 +1,5 @@
 ---
-sidebar_label: 首页
+sidebar_label: 🏠首页
 sidebar_position: 1
 ---
 
