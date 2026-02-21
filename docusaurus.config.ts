@@ -103,10 +103,10 @@ const config: Config = {
           type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
-          label: '收藏',
+          label: '📚收藏夹',
         },
-        {to: '/blog', label: '日志', position: 'left'},
-        {to: '/suisuinian', label: '🆒碎碎念', position: 'left'},
+        {to: '/blog', label: '📝日志薄', position: 'left'},
+        {to: '/suisuinian', label: '📜碎碎念', position: 'left'},
         {
           href: 'https://github.com/playoo/docusaurus-template',
           label: 'GitHub',
