@@ -106,6 +106,7 @@ const config: Config = {
           label: '收藏',
         },
         {to: '/blog', label: '日志', position: 'left'},
+        {to: '/suisuinian', label: '🆒碎碎念', position: 'left'},
         {
           href: 'https://github.com/playoo/docusaurus-template',
           label: 'GitHub',
@@ -166,3 +167,4 @@ const config: Config = {
 };
 
 export default config;
+
