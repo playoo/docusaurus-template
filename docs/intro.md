@@ -1,5 +1,5 @@
 ---
-sidebar_label: '首页'   // 你想显示在菜单里的名字
+sidebar_label: 首页
 sidebar_position: 1
 ---
 
