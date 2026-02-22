@@ -108,7 +108,9 @@ const config: Config = {
         {to: '/blog', label: '📝日志薄', position: 'left'},
         {to: '/suisuinian', label: '📜碎碎念', position: 'left'},
         {to: '/ssn', label: '💬碎碎念', position: 'left'},
-        {to: '/about', label: '🏷️关于', position: 'right'},
+        {to: '/xssn', label: '🈲碎碎念', position: 'right'},
+       {to: '/about', label: '🏷️关于', position: 'right'},
+
         {
           href: 'https://github.com/playoo/docusaurus-template',
           label: '✏️GitHub',
