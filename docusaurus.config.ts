@@ -110,7 +110,7 @@ const config: Config = {
         {to: '/about', label: '🏷️关于', position: 'right'},
         {
           href: 'https://github.com/playoo/docusaurus-template',
-          label: 'GitHub',
+          label: '✏️GitHub',
           position: 'right',
         },
       ],
