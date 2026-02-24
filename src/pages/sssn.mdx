@@ -1,8 +1,5 @@
 import Layout from '@theme/Layout';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { useState } from 'react';
-
-# 💭 我的碎碎念 · 朋友圈风格
 
 export default function ThoughtsPage() {
   const { siteConfig } = useDocusaurusContext();
@@ -70,9 +67,12 @@ export default function ThoughtsPage() {
   return (
     <Layout
       title="碎碎念"
-      description="朋友圈风格碎碎念，记录日常与思考">
+      description="朋友圈风格碎碎念，记录日常与思考"
+    >
       <main>
         <div className="moment-container">
+          <h1 style={{ textAlign: 'center', marginBottom: '2rem' }}>💭 我的碎碎念 · 朋友圈版</h1>
+
           <div className="moment-feed">
             {moments.map((item) => (
               <div key={item.id} className="moment-item">
@@ -276,13 +276,4 @@ export default function ThoughtsPage() {
       </main>
     </Layout>
   );
-}
- <Layout
-            title="碎碎念"
-            description="我的朋友圈式碎碎念页面，记录日常与思考">
-            <main style={{ minHeight: '80vh' }}>
-                {/* 通过MDX直接渲染 */}
-            </main>
-        </Layout>
-    );
 }
