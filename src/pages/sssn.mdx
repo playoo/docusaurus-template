@@ -1,0 +1,338 @@
+/* 这是一个专为Docusaurus设计的碎碎念（朋友圈风格）页面。
+   文件位置：建议放在 /src/pages/thoughts.mdx 或 /blog/thoughts.md
+   确保安装了 @docusaurus/theme-classic 和 MDX 支持。
+   此页面模仿微信朋友圈样式，支持暗色模式。
+*/
+
+import Layout from '@theme/Layout';
+import Link from '@docusaurus/Link';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import { useEffect, useState } from 'react';
+
+export const MdxComponents = {
+    /* 可以覆盖MDX组件，这里不需要额外定义 */
+};
+
+# 💭 我的碎碎念 · 朋友圈版
+
+<div className="moment-container">
+
+{/* 虚拟数据：在实际使用中，你可以将这些内容替换为从文件或CMS读取的数据 */}
+<MomentList />
+
+</div>
+
+{/* 样式定义 —— 模仿朋友圈卡片，兼顾Docusaurus暗色模式 */}
+<style>{`
+    .moment-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 1rem 0.5rem 3rem 0.5rem;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    }
+    /* 时间轴装饰 */
+    .moment-feed {
+        position: relative;
+    }
+    .moment-feed::before {
+        content: '';
+        position: absolute;
+        left: 30px;
+        top: 10px;
+        bottom: 10px;
+        width: 2px;
+        background: var(--ifm-color-emphasis-300);
+        opacity: 0.3;
+        border-radius: 2px;
+    }
+    /* 每条朋友圈卡片 */
+    .moment-item {
+        position: relative;
+        margin-bottom: 1.5rem;
+        padding-left: 60px; /* 留给头像和时间轴的空间 */
+    }
+    /* 头像部分 */
+    .moment-avatar {
+        position: absolute;
+        left: 10px;
+        top: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 6px; /* 微信风格略方 */
+        background-color: var(--ifm-color-primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        z-index: 2;
+        overflow: hidden;
+    }
+    .moment-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    /* 名字和发布时间 */
+    .moment-header {
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+        margin-bottom: 0.25rem;
+    }
+    .moment-author {
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: var(--ifm-color-primary);
+        margin-right: 0.75rem;
+    }
+    .moment-time {
+        font-size: 0.7rem;
+        color: var(--ifm-color-emphasis-600);
+    }
+    /* 内容卡片 */
+    .moment-content {
+        background-color: var(--ifm-card-background-color);
+        border-radius: 14px 18px 18px 18px; /* 左下角更圆，模仿气泡 */
+        padding: 0.9rem 1rem 0.7rem 1rem;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+        border: 1px solid var(--ifm-color-emphasis-200);
+        transition: background-color 0.2s;
+        word-break: break-word;
+    }
+    /* 纯文本内容 */
+    .moment-text {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin-bottom: 0.5rem;
+        white-space: pre-wrap;
+    }
+    /* 图片九宫格区域 */
+    .moment-images {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 4px;
+        margin: 0.75rem 0 0.5rem 0;
+        border-radius: 8px;
+        overflow: hidden;
+        max-width: 100%;
+    }
+    .moment-image-item {
+        aspect-ratio: 1 / 1;
+        background-color: var(--ifm-color-emphasis-200);
+        background-size: cover;
+        background-position: center;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: transform 0.1s ease;
+    }
+    .moment-image-item:hover {
+        transform: scale(1.02);
+    }
+    /* 单张图片特殊处理 */
+    .moment-images.single {
+        grid-template-columns: 1fr;
+        max-width: 240px; /* 单张图限制大小 */
+    }
+    .moment-images.single .moment-image-item {
+        aspect-ratio: auto;
+        max-height: 240px;
+        width: auto;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-color: transparent;
+    }
+    /* 操作栏 (点赞/评论) */
+    .moment-actions {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: 0.4rem;
+        font-size: 0.75rem;
+        color: var(--ifm-color-emphasis-600);
+        border-top: 1px dashed var(--ifm-color-emphasis-200);
+        padding-top: 0.4rem;
+    }
+    .moment-like {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        cursor: default;
+    }
+    .moment-like span {
+        color: var(--ifm-color-danger);
+        font-size: 1rem;
+        margin-right: 0.2rem;
+    }
+    /* 暗色模式调整 */
+    [data-theme='dark'] .moment-content {
+        background-color: var(--ifm-background-surface-color);
+        border-color: var(--ifm-color-emphasis-300);
+    }
+    [data-theme='dark'] .moment-avatar {
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    /* 时间轴小圆点覆盖 */
+    .moment-item::after {
+        content: '';
+        position: absolute;
+        left: 27px;
+        top: 18px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--ifm-color-primary);
+        border: 2px solid var(--ifm-background-color);
+        z-index: 1;
+        box-shadow: 0 0 0 1px var(--ifm-color-emphasis-300);
+    }
+    /* 头部可添加互动 */
+    .moment-time {
+        cursor: default;
+    }
+`}</style>
+
+{/* React组件：展示朋友圈列表 */}
+function MomentList() {
+    // 模拟数据：在实际使用中可以从props或静态数据导入
+    const moments = [
+        {
+            id: 1,
+            author: "我",
+            avatar: "😎", // 可以用emoji或图片
+            time: "5分钟前",
+            content: "今天天气真好，适合写代码。☀️ 这个碎碎念页面感觉就像朋友圈一样，以后要多记录一些日常。",
+            images: [
+                "https://picsum.photos/400/300?random=1",
+                "https://picsum.photos/400/300?random=2",
+                "https://picsum.photos/400/300?random=3",
+                "https://picsum.photos/400/300?random=4"
+            ],
+            likes: 5
+        },
+        {
+            id: 2,
+            author: "我",
+            avatar: "😎",
+            time: "昨天 22:15",
+            content: "深夜思考：为什么 Docusaurus 这么强大？因为 MDX 让我们可以随意定制组件。推荐大家试试！",
+            images: [], // 无图
+            likes: 12
+        },
+        {
+            id: 3,
+            author: "我",
+            avatar: "😎",
+            time: "2024-02-14",
+            content: "分享一张图。情人节快乐！",
+            images: [
+                "https://picsum.photos/600/400?random=5"
+            ],
+            likes: 24
+        },
+        {
+            id: 4,
+            author: "我",
+            avatar: "😎",
+            time: "2024-02-10",
+            content: "春节假期，在老家放烟花🎆 年味十足。",
+            images: [
+                "https://picsum.photos/400/600?random=6",
+                "https://picsum.photos/400/600?random=7"
+            ],
+            likes: 8
+        },
+        {
+            id: 5,
+            author: "我",
+            avatar: "😎",
+            time: "2024-01-30",
+            content: "Docusaurus 博客新主题，MDX 真香。",
+            images: [],
+            likes: 3
+        }
+    ];
+
+    // 处理图片点击放大 (简单alert演示，实际可用lightbox)
+    const handleImageClick = (src) => {
+        window.open(src, '_blank');
+        // 或者用alert: alert('查看大图: ' + src);
+    };
+
+    return (
+        <div className="moment-feed">
+            {moments.map((item) => (
+                <div key={item.id} className="moment-item">
+                    {/* 头像区域 */}
+                    <div className="moment-avatar">
+                        {item.avatar.match(/[\u{1f300}-\u{1f6ff}]/u) ? item.avatar : (
+                            <img src={item.avatar} alt="avatar" />
+                        )}
+                    </div>
+                    
+                    {/* 内容卡片 */}
+                    <div className="moment-content">
+                        <div className="moment-header">
+                            <span className="moment-author">{item.author}</span>
+                            <span className="moment-time">{item.time}</span>
+                        </div>
+                        
+                        {/* 正文 */}
+                        <div className="moment-text">{item.content}</div>
+                        
+                        {/* 图片网格 */}
+                        {item.images && item.images.length > 0 && (
+                            <div 
+                                className={`moment-images ${item.images.length === 1 ? 'single' : ''}`}
+                                style={item.images.length === 2 ? { gridTemplateColumns: 'repeat(2, 1fr)' } : {}}
+                            >
+                                {item.images.map((img, idx) => (
+                                    <div
+                                        key={idx}
+                                        className="moment-image-item"
+                                        style={{ backgroundImage: `url(${img})` }}
+                                        onClick={() => handleImageClick(img)}
+                                        role="button"
+                                        tabIndex={0}
+                                        aria-label="查看大图"
+                                        onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && handleImageClick(img)}
+                                    />
+                                ))}
+                            </div>
+                        )}
+                        
+                        {/* 点赞区 */}
+                        {item.likes > 0 && (
+                            <div className="moment-actions">
+                                <div className="moment-like">
+                                    <span>❤️</span> {item.likes}
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            ))}
+            
+            {/* 底部提示 */}
+            <div style={{ textAlign: 'center', marginTop: '3rem', color: 'var(--ifm-color-emphasis-500)', fontSize: '0.8rem' }}>
+                —— 没有更多了，但生活还在继续 ——
+            </div>
+        </div>
+    );
+}
+
+{/* 默认导出用于布局 */}
+export default function ThoughtsPage() {
+    const { siteConfig } = useDocusaurusContext();
+    return (
+        <Layout
+            title="碎碎念"
+            description="我的朋友圈式碎碎念页面，记录日常与思考">
+            <main style={{ minHeight: '80vh' }}>
+                {/* 通过MDX直接渲染 */}
+            </main>
+        </Layout>
+    );
+}
