@@ -108,6 +108,8 @@ const config: Config = {
         {to: '/blog', label: '📝日志薄', position: 'left'},
         {to: '/suisuinian', label: '📜碎碎念', position: 'left'},
         {to: '/ssn', label: '💬碎碎念', position: 'left'},
+        
+        {to: '/sssn', label: 'Ⓜ️碎碎念', position: 'left'},
         {to: '/xssn', label: '🈲碎碎念', position: 'right'},
        {to: '/about', label: '🏷️关于', position: 'right'},
 
