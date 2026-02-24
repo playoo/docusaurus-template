@@ -1,9 +1,5 @@
 import Layout from '@theme/Layout';
-import { NoSidebar } from '@theme/hooks/useLayout'; // 关键：禁用侧边栏
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-
-// 必须把 NoSidebar 导出，告诉 Docusaurus 不渲染侧边栏
-export const layout = NoSidebar;
 
 export default function ThoughtsPage() {
   const { siteConfig } = useDocusaurusContext();
@@ -14,10 +10,11 @@ export default function ThoughtsPage() {
       author: "我",
       avatar: "😎",
       time: "5分钟前",
-      content: "编译终于通过了！✌️ 现在这个页面干干净净，完全就是独立的朋友圈了。",
+      content: "今天天气真好，适合写代码。☀️ 这个碎碎念页面感觉就像朋友圈一样，以后要多记录一些日常。",
       images: [
         "https://picsum.photos/400/300?random=1",
         "https://picsum.photos/400/300?random=2",
+        "https://picsum.photos/400/300?random=3",
       ],
       likes: 5
     },
@@ -38,18 +35,6 @@ export default function ThoughtsPage() {
       content: "分享一张图。情人节快乐！",
       images: ["https://picsum.photos/600/400?random=5"],
       likes: 24
-    },
-    {
-      id: 4,
-      author: "我",
-      avatar: "😎",
-      time: "2026-02-10",
-      likes: 8,
-      content: "春节假期，在老家放烟花🎆 年味十足。",
-      images: [
-        "https://picsum.photos/400/600?random=6",
-        "https://picsum.photos/400/600?random=7",
-      ]
     }
   ];
 
@@ -59,88 +44,82 @@ export default function ThoughtsPage() {
 
   return (
     <Layout
-      title="我的碎碎念"
+      title="碎碎念"
       description="朋友圈风格碎碎念"
-      // 关键：不传入 header 和 footer，或者通过 CSS 隐藏
     >
-      {/* 根容器：强制覆盖全局样式，隐藏导航和页脚 */}
-      <div className="fullscreen-container">
-        <main className="moment-main">
-          <div className="moment-container">
-            <h1 style={{ textAlign: 'center', marginBottom: '2rem' }}>💭 我的碎碎念</h1>
+      <div className="moment-page-wrapper">
+        <div className="moment-container">
+          <h1 className="moment-title">💭 我的碎碎念</h1>
 
-            <div className="moment-feed">
-              {moments.map((item) => (
-                <div key={item.id} className="moment-item">
-                  <div className="moment-avatar">
-                    {item.avatar}
-                  </div>
-
-                  <div className="moment-content">
-                    <div className="moment-header">
-                      <span className="moment-author">{item.author}</span>
-                      <span className="moment-time">{item.time}</span>
-                    </div>
-
-                    <div className="moment-text">{item.content}</div>
-
-                    {item.images?.length > 0 && (
-                      <div
-                        className={`moment-images ${item.images.length === 1 ? 'single' : ''}`}
-                        style={item.images.length === 2 ? { gridTemplateColumns: 'repeat(2, 1fr)' } : {}}
-                      >
-                        {item.images.map((img, idx) => (
-                          <div
-                            key={idx}
-                            className="moment-image-item"
-                            style={{ backgroundImage: `url(${img})` }}
-                            onClick={() => handleImageClick(img)}
-                            role="button"
-                            tabIndex={0}
-                            onKeyDown={(e) => (e.key === 'Enter' || e.key === ' ') && handleImageClick(img)}
-                          />
-                        ))}
-                      </div>
-                    )}
-
-                    {item.likes > 0 && (
-                      <div className="moment-actions">
-                        <div className="moment-like">
-                          <span>❤️</span> {item.likes}
-                        </div>
-                      </div>
-                    )}
-                  </div>
+          <div className="moment-feed">
+            {moments.map((item) => (
+              <div key={item.id} className="moment-item">
+                <div className="moment-avatar">
+                  {item.avatar}
                 </div>
-              ))}
 
-              <div className="moment-end">
-                —— 没有更多了，但生活还在继续 ——
+                <div className="moment-content">
+                  <div className="moment-header">
+                    <span className="moment-author">{item.author}</span>
+                    <span className="moment-time">{item.time}</span>
+                  </div>
+
+                  <div className="moment-text">{item.content}</div>
+
+                  {item.images?.length > 0 && (
+                    <div
+                      className={`moment-images ${item.images.length === 1 ? 'single' : ''}`}
+                      style={item.images.length === 2 ? { gridTemplateColumns: 'repeat(2, 1fr)' } : {}}
+                    >
+                      {item.images.map((img, idx) => (
+                        <div
+                          key={idx}
+                          className="moment-image-item"
+                          style={{ backgroundImage: `url(${img})` }}
+                          onClick={() => handleImageClick(img)}
+                        />
+                      ))}
+                    </div>
+                  )}
+
+                  {item.likes > 0 && (
+                    <div className="moment-actions">
+                      <div className="moment-like">
+                        <span>❤️</span> {item.likes}
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
+            ))}
+
+            <div className="moment-end">
+              —— 没有更多了，但生活还在继续 ——
             </div>
           </div>
-        </main>
+        </div>
       </div>
 
       <style>{`
-        /* 强制隐藏顶部导航栏和底部页脚 */
-        .fullscreen-container {
-          --ifm-navbar-height: 0px !important; /* 告诉内容区不要留导航栏的位置 */
-        }
-        .fullscreen-container > header,
-        .fullscreen-container > footer {
+        /* 全局隐藏导航栏 + 底部栏 */
+        .navbar,
+        footer {
           display: none !important;
         }
-
-        /* 让内容铺满屏幕 */
-        .moment-main {
+        /* 让页面占满全屏 */
+        .moment-page-wrapper {
           min-height: 100vh;
           padding-top: 20px;
           padding-bottom: 40px;
-          background-color: var(--ifm-background-color);
+          background: var(--ifm-background-color);
+        }
+        .moment-title {
+          text-align: center;
+          margin-bottom: 2rem;
+          font-size: 1.5rem;
         }
 
-        /* 朋友圈核心样式 */
+        /* 朋友圈样式 */
         .moment-container {
           max-width: 600px;
           margin: 0 auto;
@@ -240,10 +219,6 @@ export default function ThoughtsPage() {
           background-position: center;
           cursor: pointer;
           border-radius: 4px;
-          transition: transform 0.1s ease;
-        }
-        .moment-image-item:hover {
-          transform: scale(1.02);
         }
         .moment-images.single {
           grid-template-columns: 1fr;
@@ -280,14 +255,9 @@ export default function ThoughtsPage() {
           color: var(--ifm-color-emphasis-500);
           font-size: 0.8rem;
         }
-
-        /* 暗色模式适配 */
         [data-theme='dark'] .moment-content {
           background-color: var(--ifm-background-surface-color);
           border-color: var(--ifm-color-emphasis-300);
-        }
-        [data-theme='dark'] .moment-avatar {
-          box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
       `}</style>
     </Layout>
