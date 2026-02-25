@@ -1,0 +1,279 @@
+import Layout from '@theme/Layout';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+
+export default function ThoughtsPage() {
+  const { siteConfig } = useDocusaurusContext();
+
+  const moments = [
+    {
+      id: 1,
+      author: "我",
+      avatar: "😎",
+      time: "5分钟前",
+      content: "今天天气真好，适合写代码。☀️ 这个碎碎念页面感觉就像朋友圈一样，以后要多记录一些日常。",
+      images: [
+        "https://picsum.photos/400/300?random=1",
+        "https://picsum.photos/400/300?random=2",
+        "https://picsum.photos/400/300?random=3",
+        "https://picsum.photos/400/300?random=4",
+      ],
+      likes: 5
+    },
+    {
+      id: 2,
+      author: "我",
+      avatar: "😎",
+      time: "昨天 22:15",
+      content: "深夜思考：为什么 Docusaurus 这么强大？因为 MDX 让我们可以随意定制组件。推荐大家试试！",
+      images: [],
+      likes: 12
+    },
+    {
+      id: 3,
+      author: "我",
+      avatar: "😎",
+      time: "2026-02-14",
+      content: "分享一张图。情人节快乐！",
+      images: ["https://picsum.photos/600/400?random=5"],
+      likes: 24
+    },
+    {
+      id: 4,
+      author: "我",
+      avatar: "😎",
+      time: "2026-02-10",
+      content: "春节假期，在老家放烟花🎆 年味十足。",
+      images: [
+        "https://picsum.photos/400/600?random=6",
+        "https://picsum.photos/400/600?random=7",
+      ],
+      likes: 8
+    },
+    {
+      id: 5,
+      author: "我",
+      avatar: "😎",
+      time: "2026-01-30",
+      content: "Docusaurus 博客新主题，MDX 真香。",
+      images: [],
+      likes: 3
+    }
+  ];
+
+  const handleImageClick = (src) => {
+    window.open(src, '_blank');
+  };
+
+  return (
+    <Layout
+      title="碎碎念"
+      description="朋友圈风格碎碎念，记录日常与思考"
+    >
+      <main>
+        <div className="moment-container">
+          <h1 style={{ textAlign: 'center', marginBottom: '2rem' }}>💭 我的碎碎念 · 朋友圈版</h1>
+
+          <div className="moment-feed">
+            {moments.map((item) => (
+              <div key={item.id} className="moment-item">
+                <div className="moment-avatar">
+                  {item.avatar}
+                </div>
+
+                <div className="moment-content">
+                  <div className="moment-header">
+                    <span className="moment-author">{item.author}</span>
+                    <span className="moment-time">{item.time}</span>
+                  </div>
+
+                  <div className="moment-text">{item.content}</div>
+
+                  {item.images?.length > 0 && (
+                    <div
+                      className={`moment-images ${
+                        item.images.length === 1 ? 'single' : ''
+                      }`}
+                      style={
+                        item.images.length === 2
+                          ? { gridTemplateColumns: 'repeat(2, 1fr)' }
+                          : {}
+                      }
+                    >
+                      {item.images.map((img, idx) => (
+                        <div
+                          key={idx}
+                          className="moment-image-item"
+                          style={{ backgroundImage: `url(${img})` }}
+                          onClick={() => handleImageClick(img)}
+                        />
+                      ))}
+                    </div>
+                  )}
+
+                  {item.likes > 0 && (
+                    <div className="moment-actions">
+                      <div className="moment-like">
+                        <span>❤️</span> {item.likes}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+
+            <div className="moment-end">
+              —— 没有更多了，但生活还在继续 ——
+            </div>
+          </div>
+        </div>
+
+        <style>{`
+          .moment-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 1rem 0.5rem 3rem 0.5rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+          }
+          .moment-feed {
+            position: relative;
+          }
+          .moment-feed::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 10px;
+            bottom: 10px;
+            width: 2px;
+            background: var(--ifm-color-emphasis-300);
+            opacity: 0.3;
+            border-radius: 2px;
+          }
+          .moment-item {
+            position: relative;
+            margin-bottom: 1.5rem;
+            padding-left: 60px;
+          }
+          .moment-item::after {
+            content: '';
+            position: absolute;
+            left: 27px;
+            top: 18px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--ifm-color-primary);
+            border: 2px solid var(--ifm-background-color);
+            z-index: 1;
+          }
+          .moment-avatar {
+            position: absolute;
+            left: 10px;
+            top: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            background-color: var(--ifm-color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            z-index: 2;
+          }
+          .moment-header {
+            display: flex;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 0.25rem;
+          }
+          .moment-author {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--ifm-color-primary);
+            margin-right: 0.75rem;
+          }
+          .moment-time {
+            font-size: 0.7rem;
+            color: var(--ifm-color-emphasis-600);
+          }
+          .moment-content {
+            background-color: var(--ifm-card-background-color);
+            border-radius: 14px 18px 18px 18px;
+            padding: 0.9rem 1rem 0.7rem 1rem;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+            border: 1px solid var(--ifm-color-emphasis-200);
+            transition: background-color 0.2s;
+            word-break: break-word;
+          }
+          .moment-text {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 0.5rem;
+            white-space: pre-wrap;
+          }
+          .moment-images {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            margin: 0.75rem 0 0.5rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+          }
+          .moment-image-item {
+            aspect-ratio: 1 / 1;
+            background-color: var(--ifm-color-emphasis-200);
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: transform 0.1s ease;
+          }
+          .moment-image-item:hover {
+            transform: scale(1.02);
+          }
+          .moment-images.single {
+            grid-template-columns: 1fr;
+            max-width: 240px;
+          }
+          .moment-images.single .moment-image-item {
+            max-height: 240px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-color: transparent;
+          }
+          .moment-actions {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            margin-top: 0.4rem;
+            font-size: 0.75rem;
+            color: var(--ifm-color-emphasis-600);
+            border-top: 1px dashed var(--ifm-color-emphasis-200);
+            padding-top: 0.4rem;
+          }
+          .moment-like {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+          }
+          .moment-like span {
+            color: var(--ifm-color-danger);
+            font-size: 1rem;
+          }
+          .moment-end {
+            text-align: center;
+            margin-top: 3rem;
+            color: var(--ifm-color-emphasis-500);
+            font-size: 0.8rem;
+          }
+          [data-theme='dark'] .moment-content {
+            background-color: var(--ifm-background-surface-color);
+            border-color: var(--ifm-color-emphasis-300);
+          }
+        `}</style>
+      </main>
+    </Layout>
+  );
+}
